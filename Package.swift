@@ -4,14 +4,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "Routing",
+    name: "SUIRouting",
     platforms: [
            .iOS(.v15),
        ],
     products: [
         .library(
-            name: "Routing",
-            targets: ["Routing"]
+            name: "SUIRouting",
+            targets: ["SUIRouting"]
         ),
     ],
     dependencies: [
@@ -19,7 +19,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "Routing",
+            name: "SUIRouting",
             dependencies: [
                 .product(name: "NavigationStackBackport", package: "navigation-stack-backport")
             ]
