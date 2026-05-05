@@ -41,7 +41,9 @@ private struct BaseRoutingViewModifier: ViewModifier {
             .rtFullScreenCover(viewState: routingState)
             .onAppear {
                 router.routingState = routingState
-                routingState.dismiss = dismiss
+            }
+            .onChange(of: routingState.dismiss) { dismiss in
+                self.dismiss()
             }
     }
 }

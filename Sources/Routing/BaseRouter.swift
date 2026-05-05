@@ -33,7 +33,7 @@ open class BaseRouter {
      В этом случае надо вызывать dismissChild нижнего в стеке навигации вида.
      */
     public func dismissSelf() {
-        routingState?.dismiss?()
+        routingState?.dismiss.toggle()
     }
 
      /// Скрывает показываемый из данного вид, если он есть.
@@ -45,7 +45,7 @@ open class BaseRouter {
 
 @MainActor
 class RoutingState: SheetObservableObject, FullScreenCoverObservableObject {
-    @Published var dismiss: DismissAction?
+    @Published var dismiss: Bool = false
     @Published var viewToSheet: AnyView?
     @Published var viewToFullScreenCover: AnyView?
 }

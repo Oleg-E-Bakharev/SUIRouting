@@ -1,0 +1,15 @@
+{
+  "originHash" : "387f1242a97cf51679f1efc7fa5457eb1a88e413f9961af1c1ea116b6a3de249",
+  "pins" : [
+    {
+      "identity" : "navigation-stack-backport",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/lm/navigation-stack-backport.git",
+      "state" : {
+        "revision" : "55acfe7693c233ddc7f62f887f0df6ebd779ef01",
+        "version" : "1.1.0"
+      }
+    }
+  ],
+  "version" : 3
+}
