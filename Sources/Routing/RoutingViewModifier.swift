@@ -28,7 +28,7 @@ private struct BaseRoutingViewModifier: ViewModifier {
 
     @StateObject private var routingState: RoutingState
     private let router: BaseRouter
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.rtDismiss) private var dismiss
 
     public init(_ router: BaseRouter) {
         _routingState = .init(wrappedValue: RoutingState())
@@ -42,8 +42,8 @@ private struct BaseRoutingViewModifier: ViewModifier {
             .onAppear {
                 router.routingState = routingState
             }
-            .onChange(of: routingState.dismiss) { dismiss in
-                self.dismiss()
+            .onChange(of: routingState.dismiss) { _ in
+                dismiss()
             }
     }
 }
