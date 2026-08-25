@@ -58,6 +58,17 @@ private struct Sample: View {
                     self.viewState.viewToSheet = nil
                 }
             }
+
+            // Имитация повторного показа диплинки
+            Task {
+                try? await Task.sleep(nanoseconds: 1_000_000_000)
+
+                viewState.displaySheet {
+                    Button("Close 2") {
+                        self.viewState.viewToSheet = nil
+                    }
+                }
+            }
         }
         .rtSheet(viewState: viewState) // Покажет щит когда в presenter.sheet (showSheet) установят значение
     }
