@@ -25,6 +25,14 @@ open class BaseRouter {
         routingState?.viewToFullScreenCover = AnyView(view())
     }
 
+    public var hasSheetView: Bool {
+        routingState?.viewToSheet != nil
+    }
+
+    public var hasFullScreenCoverView: Bool {
+        routingState?.viewToFullScreenCover != nil
+    }
+
     /**
      Выталкивавает вид из стека навигации* или скрывает щит.
 
@@ -49,3 +57,4 @@ class RoutingState: SheetObservableObject, FullScreenCoverObservableObject {
     @Published var viewToSheet: AnyView?
     @Published var viewToFullScreenCover: AnyView?
 }
+

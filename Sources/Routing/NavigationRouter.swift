@@ -17,18 +17,11 @@ open class NavigationRouter: BaseRouter {
     public override init() {}
 
     public func push<V: View>( @ViewBuilder view: () -> V) {
-        let viewToPush = AnyView(view())
-        if navigationState?.viewToPush != nil {
-            navigationState?.viewToPush = nil
-            Task {
-                // Смена пушей (например при открытии диплинков) должна закрыть старый пуш и открыть новый.
-                // Без паузы, выбранной эмпирическим путем повторное открытие диплинков работает нестабильно.
-                try? await Task.sleep(nanoseconds: 600_000_000)
-                navigationState?.viewToPush = viewToPush
-            }
-        } else {
-            navigationState?.viewToPush = viewToPush
-        }
+        navigationState?.viewToPush = AnyView(view())
+    }
+
+    public var hasPushedView: Bool {
+        navigationState?.viewToPush != nil
     }
 
     /**
