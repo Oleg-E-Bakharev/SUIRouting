@@ -1,6 +1,6 @@
 //
 //  FullScreenCoverRouterViewModifier.swift
-//  Routing
+//  SUIRouting
 //
 //  Created by Oleg Bakharev on 27.12.2025.
 //
@@ -23,6 +23,9 @@ struct FullScreenCoverRouterViewModifier<ViewState: FullScreenCoverObservableObj
                 )
             ) {
                 viewState.viewToFullScreenCover
+                    .environment(\.rtDismissRoot) { [weak viewState] in
+                        viewState?.viewToFullScreenCover = nil
+                    }
             }
     }
 }

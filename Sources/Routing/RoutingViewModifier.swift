@@ -1,6 +1,6 @@
 //
 //  RoutingView.swift
-//  Routing
+//  SUIRouting
 //
 //  Created by Oleg Bakharev on 27.12.2025.
 //
@@ -29,6 +29,7 @@ private struct BaseRoutingViewModifier: ViewModifier {
     @StateObject private var routingState: RoutingState
     private let router: BaseRouter
     @Environment(\.rtDismiss) private var dismiss
+    @Environment(\.rtDismissRoot) private var dismissRoot
 
     public init(_ router: BaseRouter) {
         _routingState = .init(wrappedValue: RoutingState())
@@ -44,6 +45,9 @@ private struct BaseRoutingViewModifier: ViewModifier {
             }
             .onChange(of: routingState.dismiss) { _ in
                 dismiss()
+            }
+            .onChange(of: routingState.dismissRoot) { _ in
+                dismissRoot?()
             }
     }
 }
@@ -95,23 +99,39 @@ private struct Sample: View {
 
                 Button("Sheet") {
                     router.sheet {
-                        Button("Close") {
-                            router.dismissChild()
-                        }
+                        Subview()
                     }
                 }
 
                 Button("Cover") {
                     router.fullScreenCover {
-                        Button("Close") {
-                            router.dismissChild()
-                        }
+                        Subview()
                     }
                 }
             }
             .navigationTitle("Master")
             .rtNavigationRouting(with: router)
         }
+    }
+}
+
+struct Subview: View {
+    let router = NavigationRouter()
+
+    var body: some View {
+        NavigationView {
+            VStack {
+                Button("Close") {
+                    router.dismissSelf()
+                }
+                NavigationLink("Push") {
+                    Button("Close") {
+                        router.dismissRoot()
+                    }
+                }
+            }
+        }
+        .rtBaseRouting(with: router)
     }
 }
 

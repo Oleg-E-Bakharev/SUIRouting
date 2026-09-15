@@ -1,6 +1,6 @@
 //
 //  SheetRouterView.swift
-//  Routing
+//  SUIRouting
 //
 //  Created by Oleg Bakharev on 27.12.2025.
 //
@@ -29,6 +29,9 @@ private struct SheetRouterViewModifier<ViewState: SheetObservableObject>: ViewMo
                 )
             ) {
                 viewState.viewToSheet
+                    .environment(\.rtDismissRoot) { [weak viewState] in
+                        viewState?.viewToSheet = nil
+                    }
             }
     }
 }

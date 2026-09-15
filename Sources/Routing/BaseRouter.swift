@@ -1,6 +1,6 @@
 //
 //  BaseRouter.swift
-//  Routing
+//  SUIRouting
 //
 //  Created by Oleg Bakharev on 27.12.2025.
 //
@@ -18,7 +18,9 @@ open class BaseRouter {
     public init() {}
 
     public func sheet<V: View>(view: () -> V) {
-        routingState?.viewToSheet = AnyView(view())
+        routingState?.viewToSheet = AnyView(
+            view()
+        )
     }
 
     public func fullScreenCover<V: View>(view: () -> V) {
@@ -49,6 +51,11 @@ open class BaseRouter {
         routingState?.viewToSheet = nil
         routingState?.viewToFullScreenCover = nil
     }
+
+    /// Для показанных через sheet/fullscreenCover видов скрывает его.
+    public func dismissRoot() {
+        routingState?.dismissRoot.toggle()
+    }
 }
 
 @MainActor
@@ -56,5 +63,9 @@ class RoutingState: SheetObservableObject, FullScreenCoverObservableObject {
     @Published var dismiss: Bool = false
     @Published var viewToSheet: AnyView?
     @Published var viewToFullScreenCover: AnyView?
+    @Published var dismissRoot: Bool = false
 }
 
+extension EnvironmentValues {
+    @Entry var rtDismissRoot: (() -> Void)?
+}
